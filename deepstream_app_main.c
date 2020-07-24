@@ -962,6 +962,17 @@ static gboolean overlay_graphics(AppCtx* appCtx, GstBuffer* buf, NvDsBatchMeta* 
 
 int main(int argc, char* argv[])
 {
+    udp_initialize = UDP_init();
+    if (Debug == 1 && udp_initialize == 0)
+    {
+        printf("---------------------- UDP Link Fault --------------------\n");
+    }
+    else
+    {
+        //coding rule
+    }
+
+
     GOptionContext* ctx = NULL;
     GOptionGroup* group = NULL;
     GError* error = NULL;
@@ -1167,17 +1178,7 @@ int main(int argc, char* argv[])
     changemode(1);
     g_timeout_add(40, event_thread_func, NULL);
 
-    udp_initialize = UDP_init();
-    if (Debug == 1 && udp_initialize == 0)
-    {
-        printf("---------------------- UDP Link Fault --------------------\n");
-    }
-    else
-    {
-        //coding rule
-    }
-
-
+ 
     g_main_loop_run (main_loop);
 
     changemode(0);
