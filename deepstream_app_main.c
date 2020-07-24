@@ -745,22 +745,22 @@ static gboolean event_thread_func(gpointer arg)
             g_print("--tiled mode --\n");
         }
         break;
-    //case 'w':
-    //    UDPXavierSendBuffer.tiltCMD = (float)0.1;
-    //    break;
-    //case 'a':
-    //    UDPXavierSendBuffer.panCMD = (float)-0.1;
-    //    break;
-    //case 's':
-    //    UDPXavierSendBuffer.tiltCMD = (float)-0.1;
-    //    break;
-    //case 'd':
-    //    UDPXavierSendBuffer.panCMD = (float)0.1;
-    //    break;
-    //case 'f':
-    //    UDPXavierSendBuffer.panCMD = (float)0;
-    //    UDPXavierSendBuffer.tiltCMD = (float)0;
-    //    break;
+    case 'w':
+        UDPXavierSendBuffer.tiltCMD = (float)0.1;
+        break;
+    case 'a':
+        UDPXavierSendBuffer.panCMD = (float)-0.1;
+        break;
+    case 's':
+        UDPXavierSendBuffer.tiltCMD = (float)-0.1;
+        break;
+    case 'd':
+        UDPXavierSendBuffer.panCMD = (float)0.1;
+        break;
+    case 'f':
+        UDPXavierSendBuffer.panCMD = (float)0;
+        UDPXavierSendBuffer.tiltCMD = (float)0;
+        break;
     default:
         break;
     }
@@ -1056,20 +1056,6 @@ int main(int argc, char* argv[])
 
     g_timeout_add(400, check_for_interrupt, NULL);
 
-    udp_initialize = UDP_init();
-    if (Debug == 1 && udp_initialize == 0)
-    {
-        printf("---------------------- UDP Link Fault --------------------\n");
-    }
-    else
-    {
-        //coding rule
-    }
-    //udpStartCom();
-
-
-
-
     g_mutex_init(&disp_lock);
     display = XOpenDisplay(NULL);
     for (i = 0; i < num_instances; i++)
@@ -1180,6 +1166,16 @@ int main(int argc, char* argv[])
 
     changemode(1);
     g_timeout_add(40, event_thread_func, NULL);
+
+    udp_initialize = UDP_init();
+    if (Debug == 1 && udp_initialize == 0)
+    {
+        printf("---------------------- UDP Link Fault --------------------\n");
+    }
+    else
+    {
+        //coding rule
+    }
 
 
     g_main_loop_run (main_loop);
